@@ -5,16 +5,16 @@ import (
 	"net/http"
 )
 
-type HomeHandler struct {
+type Handler struct {
 }
 
-func (h *HomeHandler) Index() http.HandlerFunc {
+func (h *Handler) Index() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		io.WriteString(w, "Welcome to homePage")
 	}
 }
 
-func (h *HomeHandler) Configure(r *http.ServeMux) {
+func (h *Handler) Configure(r *http.ServeMux) {
 	r.HandleFunc("/", h.Index())
 }

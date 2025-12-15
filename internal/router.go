@@ -12,6 +12,6 @@ func NewRouter() *http.ServeMux {
 }
 
 func configureRouter(r *http.ServeMux) {
-	homeHandler := home.HomeHandler{}
+	homeHandler := home.Handler{}
 	homeHandler.Configure(r)
 }

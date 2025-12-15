@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"frontdev333/wishlist/configs"
+	"frontdev333/wishlist/database"
 	"frontdev333/wishlist/internal"
 	"log/slog"
 	"net/http"
@@ -11,8 +12,6 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
-
-	"github.com/lib/pq"
 )
 
 var wg = &sync.WaitGroup{}
@@ -21,7 +20,7 @@ func Start() {
 	cfg := configs.NewConfig()
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, os.Kill, syscall.SIGINT)
 	defer cancel()
-	db, err := pq.NewConnector(cfg.DataBaseCredentials)
+	db, err := database.New(cfg.DataBaseCredentials)
 	if err != nil {
 		panic(err)
 	}
