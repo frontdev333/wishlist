@@ -20,7 +20,7 @@ func Start() {
 	cfg := configs.NewConfig()
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, os.Kill, syscall.SIGINT)
 	defer cancel()
-	db, err := database.New(cfg.DataBaseCredentials)
+	db, err := database.New(ctx, cfg.DataBaseCredentials)
 	if err != nil {
 		panic(err)
 	}

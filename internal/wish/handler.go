@@ -1,6 +1,10 @@
 package wish
 
-import "net/http"
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
 
 type Handler struct {
 	repository *Repository
@@ -20,7 +24,19 @@ func (h *Handler) Get(wishId uint) http.HandlerFunc {
 
 func (h *Handler) Store() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		var payload StorePayload
 
+		if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		wish, err := h.repository.Store(&payload)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		_ = wish
 	}
 }
 

@@ -1,17 +1,21 @@
 package database
 
-import "github.com/lib/pq"
+import (
+	"context"
+
+	"github.com/jackc/pgx/v5"
+)
 
 type DB struct {
-	*pq.Connector
+	*pgx.Conn
 }
 
-func New(credentials string) (*DB, error) {
-	connector, err := pq.NewConnector(credentials)
+func New(ctx context.Context, credentials string) (*DB, error) {
+	conn, err := pgx.Connect(ctx, credentials)
 	if err != nil {
 		return nil, err
 	}
 	return &DB{
-		connector,
+		conn,
 	}, nil
 }

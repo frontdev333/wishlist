@@ -1,7 +1,9 @@
 package wish
 
+import "frontdev333/wishlist/database"
+
 type Repository struct {
-	model *Wish
+	db *database.DB
 }
 
 func (r *Repository) GetAll() []Wish {
@@ -14,7 +16,7 @@ func (r *Repository) Get(slug string) Wish {
 	return Wish{}
 }
 
-func (r *Repository) Store() (Wish, error) {
+func (r *Repository) Store(payload *StorePayload) (Wish, error) {
 	return Wish{}, nil
 }
 
